@@ -18,7 +18,7 @@ public class MainManager : MonoBehaviour
     
     private bool m_GameOver = false;
 
-    
+    public Text bestScoreField;
     // Start is called before the first frame update
     void Start()
     {
@@ -35,6 +35,11 @@ public class MainManager : MonoBehaviour
                 brick.PointValue = pointCountArray[i];
                 brick.onDestroyed.AddListener(AddPoint);
             }
+        }
+
+        if (PlayerManager.Instance != null)
+        {
+            bestScoreField.text = PlayerManager.Instance.UpdateData();
         }
     }
 
@@ -72,5 +77,13 @@ public class MainManager : MonoBehaviour
     {
         m_GameOver = true;
         GameOverText.SetActive(true);
+        if (PlayerManager.Instance != null)
+        {
+            if (m_Points > PlayerManager.Instance.playerScore)
+            {
+                //save new high score
+            }
+            bestScoreField.text = PlayerManager.Instance.UpdateData();
+        }
     }
 }
