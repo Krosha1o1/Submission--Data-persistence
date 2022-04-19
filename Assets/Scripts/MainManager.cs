@@ -70,6 +70,7 @@ public class MainManager : MonoBehaviour
     void AddPoint(int point)
     {
         m_Points += point;
+        PlayerManager.Instance.playerScore = m_Points;
         ScoreText.text = $"Score : {m_Points}";
     }
 
@@ -79,9 +80,9 @@ public class MainManager : MonoBehaviour
         GameOverText.SetActive(true);
         if (PlayerManager.Instance != null)
         {
-            if (m_Points > PlayerManager.Instance.playerScore)
+            if (m_Points >= PlayerManager.Instance.bestScore)
             {
-                //save new high score
+                PlayerManager.Instance.SaveHighscore();
             }
             bestScoreField.text = PlayerManager.Instance.UpdateData();
         }
